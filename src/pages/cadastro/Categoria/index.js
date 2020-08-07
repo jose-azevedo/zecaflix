@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import PageDefault from '../../../components/PageDefault';
 import FormField from '../../../components/FormField';
@@ -20,6 +20,15 @@ function CadastroCategoria() {
     });
   }
 
+  useEffect(() => {
+    console.log('TESTANO');
+    const URL = 'http://localhost:8010/categories';
+    fetch(URL).then(async (res) => {
+      const jsonRes = await res.json();
+      setNewCategory([...jsonRes]);
+    })
+  }, []);
+
   return (
     <>
       <PageDefault>
@@ -32,7 +41,6 @@ function CadastroCategoria() {
         <form onSubmit={function handleSubmit(eventInfo) {
           eventInfo.preventDefault();
           setNewCategory([...categoryList, categoryValues]);
-          console.log(categoryList);
           setCategoryValues(initialValues);
         }}
         >
@@ -42,7 +50,7 @@ function CadastroCategoria() {
 
           <FormField type="color" name="color" label="Cor: " value={categoryValues.color} onChange={handleChange} />
 
-          <Button>
+          <Button as= "button">
             Cadastrar
           </Button>
         </form>

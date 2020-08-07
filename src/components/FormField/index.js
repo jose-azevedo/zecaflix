@@ -61,7 +61,6 @@ const Input = styled.input`
 
   ${
     function ({ hasValue }) {
-      console.log(hasValue);
       return hasValue && css`
         &:not([type="color"]) + span {
           transform: scale(.6) translateY(-10px);

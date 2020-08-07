@@ -1,0 +1,16 @@
+{
+    "categories": [
+        {   
+            "id": 1,
+            "name": "Games",
+            "description": "Jogos e tudo o mais",
+            "color": "#B27C91"
+        },
+        {   
+            "id": 2,
+            "name": "Filmes",
+            "description": "Cinéfilos e tal...",
+            "color": "#5923E7"
+        }
+    ]
+}
