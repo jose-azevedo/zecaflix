@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import PageDefault from '../../../components/PageDefault';
 import FormField from '../../../components/FormField';
 import Button from '../../../components/Button';
+import useForm from '../../../hooks/useForm';
+import categories from '../../../repos/categories'
 
 function CadastroCategoria() {
   const initialValues = {
@@ -10,23 +12,15 @@ function CadastroCategoria() {
     description: '',
     color: '#000000',
   };
-  const [categoryValues, setCategoryValues] = useState(initialValues);
   const [categoryList, setNewCategory] = useState([]);
-
-  function handleChange(eventInfo) {
-    setCategoryValues({
-      ...categoryValues,
-      [eventInfo.target.getAttribute('name')]: eventInfo.target.value,
-    });
-  }
-
+  
+  const { categoryValues, handleChange, clearForm} = useForm(initialValues);
+  
   useEffect(() => {
-    console.log('TESTANO');
-    const URL = 'https://zeroflix0.herokuapp.com/categories';
-    fetch(URL).then(async (res) => {
-      const jsonRes = await res.json();
-      setNewCategory([...jsonRes]);
-    })
+    categories.getAllWithVideos()
+    .then((categoriesWithVideos) => {
+      setNewCategory([...categoriesWithVideos]);
+    });
   }, []);
 
   return (
@@ -41,7 +35,7 @@ function CadastroCategoria() {
         <form onSubmit={function handleSubmit(eventInfo) {
           eventInfo.preventDefault();
           setNewCategory([...categoryList, categoryValues]);
-          setCategoryValues(initialValues);
+          clearForm();
         }}
         >
           <FormField type="text" name="name" label="Nome da categoria: " value={categoryValues.name} onChange={handleChange} />
