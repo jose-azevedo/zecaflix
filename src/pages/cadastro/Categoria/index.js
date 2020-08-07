@@ -22,7 +22,7 @@ function CadastroCategoria() {
 
   useEffect(() => {
     console.log('TESTANO');
-    const URL = 'http://localhost:8010/categories';
+    const URL = 'https://zeroflix0.herokuapp.com/categories';
     fetch(URL).then(async (res) => {
       const jsonRes = await res.json();
       setNewCategory([...jsonRes]);
